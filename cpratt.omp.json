@@ -1,0 +1,183 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "palette": {
+    "white": "#F8F8F2",
+    "error": "#f1184c",
+    "success": "#2e9599",
+    "azure": "#9ec3f0",
+    "kubernetes": "#316ce4",
+    "dotnet": "#00ffff"
+  },
+  "blocks": [
+    {
+      "alignment": "right",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "p:white",
+          "background_templates": [
+            "{{ if gt .Code 0 }}p:error{{ else }}p:success{{ end }}"
+          ],
+          "leading_diamond": "<background,transparent>\ue0b6</>",
+          "properties": {
+            "always_enabled": true
+          },
+          "style": "diamond",
+          "template": " {{ if gt .Code 0 }}\uf00d {{ .Meaning }}{{ else }}\uf42e{{ end }} ",
+          "trailing_diamond": "",
+          "type": "exit"
+        },
+        {
+          "foreground": "p:white",
+          "background_templates": [
+            "{{ if gt .Code 0 }}p:error{{ else }}p:success{{ end }}"
+          ],
+          "leading_diamond": "",
+          "style": "diamond",
+          "template": "{{ .CurrentDate | date .Format }} ",
+          "trailing_diamond": "",
+          "type": "time",
+          "properties": {
+            "time_format": "3:04:05 PM"
+          }
+        },
+        {
+          "type": "executiontime",
+          "trailing_diamond": "<background,transparent>\ue0b4</>",
+          "leading_diamond": "",
+          "style": "diamond",
+          "foreground": "p:white",
+          "background_templates": [
+            "{{ if gt .Code 0 }}p:error{{ else }}p:success{{ end }}"
+          ],
+          "template": "({{ .FormattedMs }}) ",
+          "properties": {
+            "threshold": 0,
+            "style": "austin"
+          }
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "background": "transparent",
+          "foreground": "p:white",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "style": "diamond",
+          "properties": {
+            "windows": "\ue70f"
+          },
+          "template": "{{.Icon}} ",
+          "type": "os"
+        },
+        {
+          "background": "transparent",
+          "foreground": "p:white",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "style": "diamond",
+          "template": "{{ .Name }}{{ if .WSL }}{{ end }} ",
+          "type": "shell"
+        },
+        {
+          "background": "p:azure",
+          "foreground": "transparent",
+          "leading_diamond": "<transparent,background>\ue0b0</>",
+          "trailing_diamond": "<background,transparent>\ue0b0</>",
+          "style": "diamond",
+          "template": " \ufd03 {{ url .Name \"https://portal.azure.com/#blade/HubsExtension/BrowseAll\" }} ({{ if .EnvironmentName | contains \"AzureCloud\" }}{{ \"Global\" }}{{ else }}{{ .EnvironmentName }}{{ end }}) ",
+          "type": "az"
+        },
+        {
+          "background": "p:kubernetes",
+          "foreground": "#ffffff",
+          "leading_diamond": "<transparent,background>\ue0b0</>",
+          "trailing_diamond": "<background,transparent>\ue0b0</>",
+          "style": "diamond",
+          "template": " \ufd31 {{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}} ",
+          "type": "kubectl"
+        },
+        
+        {
+          "type": "dotnet",
+          "leading_diamond": "<transparent,background>\ue0b0</>",
+          "trailing_diamond": "<background,transparent>\ue0b0</>",
+          "style": "diamond",
+          "foreground": "transparent",
+          "background": "p:dotnet",
+          "template": " \ue77f {{ .Full }} "
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        
+        {
+          "background": "p:white",
+          "foreground": "transparent",
+          "leading_diamond": "",
+          "trailing_diamond": "<background,transparent>\ue0b0</>",
+          "style": "diamond",
+          "properties": {
+            "style": "agnoster_short",
+            "home_icon": "\uf7db",
+            "folder_separator_icon": " <#c0c0c0,background>\ue0b1</> ",
+            "max_depth": 4,
+            "mapped_locations": {
+              "/mnt/c/Users/cpratt": "\ue70f\uf7db"
+            }
+          },
+          "template": " {{ path .Path .Location }} ",
+          "type": "path"
+        },
+        {
+          "background": "#fffb38",
+          "background_templates": [
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}#FF9248{{ end }}",
+            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#ff4500{{ end }}",
+            "{{ if gt .Ahead 0 }}#B388FF{{ end }}",
+            "{{ if gt .Behind 0 }}#B388FF{{ end }}"
+          ],
+          "foreground": "transparent",
+          "powerline_symbol": "\ue0b0",
+          "properties": {
+            "branch_icon": "\ue725 ",
+            "fetch_stash_count": true,
+            "fetch_status": true,
+            "fetch_upstream_icon": true,
+            "fetch_worktree_count": true
+          },
+          "style": "powerline",
+          "template": " {{ url .UpstreamIcon .UpstreamURL }}{{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \uf692 {{ .StashCount }}{{ end }} ",
+          "type": "git"
+        }
+        
+        
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "type": "session",
+          "style": "plain",
+          "template": "{{ if .SSHSession }}\uF817 {{ .UserName }}@{{ .HostName }} {{ end }}\u276f"
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "console_title_template": "{{ .Shell }} in {{ .Folder }}",
+  "final_space": true,
+  "version": 2
+}
