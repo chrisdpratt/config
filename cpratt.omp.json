@@ -11,7 +11,6 @@
   "blocks": [
     {
       "alignment": "right",
-      "newline": true,
       "segments": [
         {
           "foreground": "p:white",
@@ -62,6 +61,7 @@
     {
       "alignment": "left",
       "newline": true,
+      "vertical_offset": -1,
       "segments": [
         {
           "background": "transparent",
@@ -87,26 +87,26 @@
         {
           "background": "p:azure",
           "foreground": "transparent",
-          "leading_diamond": "<transparent,background>\ue0b0</>",
-          "trailing_diamond": "<background,transparent>\ue0b0</>",
+          "leading_diamond": "\ue0d7",
+          "trailing_diamond": "\ue0b0",
           "style": "diamond",
-          "template": " \ufd03 {{ url .Name \"https://portal.azure.com/#blade/HubsExtension/BrowseAll\" }} ({{ if .EnvironmentName | contains \"AzureCloud\" }}{{ \"Global\" }}{{ else }}{{ .EnvironmentName }}{{ end }}) ",
+          "template": " \udb82\udc05 {{ url .Name \"https://portal.azure.com/#blade/HubsExtension/BrowseAll\" }} ({{ if .EnvironmentName | contains \"AzureCloud\" }}{{ \"Global\" }}{{ else }}{{ .EnvironmentName }}{{ end }}) ",
           "type": "az"
         },
         {
           "background": "p:kubernetes",
           "foreground": "#ffffff",
-          "leading_diamond": "<transparent,background>\ue0b0</>",
-          "trailing_diamond": "<background,transparent>\ue0b0</>",
+          "leading_diamond": "\ue0d7",
+          "trailing_diamond": "\ue0b0",
           "style": "diamond",
-          "template": " \ufd31 {{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}} ",
+          "template": " \udb84\udcfe {{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}} ",
           "type": "kubectl"
         },
         
         {
           "type": "dotnet",
-          "leading_diamond": "<transparent,background>\ue0b0</>",
-          "trailing_diamond": "<background,transparent>\ue0b0</>",
+          "leading_diamond": "\ue0d7",
+          "trailing_diamond": "\ue0b0",
           "style": "diamond",
           "foreground": "transparent",
           "background": "p:dotnet",
@@ -119,7 +119,6 @@
       "alignment": "left",
       "newline": true,
       "segments": [
-        
         {
           "background": "p:white",
           "foreground": "transparent",
@@ -128,8 +127,8 @@
           "style": "diamond",
           "properties": {
             "style": "agnoster_short",
-            "home_icon": "\uf7db",
-            "folder_separator_icon": " <#c0c0c0,background>\ue0b1</> ",
+            "home_icon": "\uf015",
+            "folder_separator_icon": " <transparent,background>\ue0b1</> ",
             "max_depth": 4,
             "mapped_locations": {
               "/mnt/c/Users/cpratt": "\ue70f\uf7db"
@@ -147,7 +146,8 @@
             "{{ if gt .Behind 0 }}#B388FF{{ end }}"
           ],
           "foreground": "transparent",
-          "powerline_symbol": "\ue0b0",
+          "leading_diamond": "\ue0d7",
+          "trailing_diamond": "\ue0b0",
           "properties": {
             "branch_icon": "\ue725 ",
             "fetch_stash_count": true,
@@ -155,7 +155,7 @@
             "fetch_upstream_icon": true,
             "fetch_worktree_count": true
           },
-          "style": "powerline",
+          "style": "diamond",
           "template": " {{ url .UpstreamIcon .UpstreamURL }}{{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \uf692 {{ .StashCount }}{{ end }} ",
           "type": "git"
         }
@@ -179,5 +179,5 @@
   ],
   "console_title_template": "{{ .Shell }} in {{ .Folder }}",
   "final_space": true,
-  "version": 2
+  "version": 3
 }
